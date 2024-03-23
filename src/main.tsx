@@ -28,6 +28,8 @@ const router = createBrowserRouter(
     <Route path="/" element={<App />}>
       <Route path="/" element={<Login />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/thankyou" element={<Thankyou />} />
+      <Route path="/register" element={<Register />} />
       <Route path="" element={<PrivateRoute />}>
         <Route path="/action" element={<Action />} />
         <Route path="/amount" element={<Amount />} />
@@ -38,8 +40,6 @@ const router = createBrowserRouter(
         <Route path="/confirm" element={<ConfirmTransfer />} />
         <Route path="/change-pin" element={<ChangePin />} />
       </Route>
-      <Route path="/thankyou" element={<Thankyou />} />
-      <Route path="/register" element={<Register />} />
     </Route>
   )
 );
