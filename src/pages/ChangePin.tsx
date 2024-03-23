@@ -1,54 +1,53 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { selectBalance } from "../app/data/amount";
-import { useAppSelector } from "../app/data/store";
-import { useGetUserBalanceQuery } from "../app/api/user";
+import { useChangePinMutation } from "../app/api/user";
+import { useLogoutMutation } from "../app/api/auth";
+import { AUTH_STORAGE_KEY } from "../app/index";
+import { TOKEN_STORAGE_KEY } from "../app/index";
 
-export const Transfer = () => {
+export const ChangePin = () => {
   const navigate = useNavigate();
 
-  const { data: balance } = useGetUserBalanceQuery({});
+  const [oldPin, setOldPin] = useState("");
+  const [newPin, setNewPin] = useState("");
 
-  const [transferAmount, setTransferAmount] = useState("");
-  const [account, setAccount] = useState("");
+  const [changePin] = useChangePinMutation();
 
-  const currBalance = useAppSelector(selectBalance);
+  const [logout] = useLogoutMutation();
 
-  const handleSetAmount = () => {
-    if (balance && +transferAmount > balance.balance) {
-      alert("Insufficient balance");
-      return;
-    }
-
-    if (!transferAmount || !account) {
-      alert("Please fill all fields");
-      return;
-    }
-
-    if (account.length < 10) {
-      alert("Please enter a valid account number");
-      return;
-    }
-    if (+transferAmount < 0) {
-      alert("Enter a valid amount");
-      return;
-    }
-    if (+transferAmount > currBalance) {
-      alert("Insufficient funds");
-      navigate("/thankyou");
-      return;
-    }
-    localStorage.setItem("transferAmount", transferAmount);
-    localStorage.setItem("transferAccount", account);
-    navigate("/confirm");
+  const onLogout = async () => {
+    logout();
+    localStorage.removeItem(AUTH_STORAGE_KEY);
+    localStorage.removeItem(TOKEN_STORAGE_KEY);
+    navigate("/login");
   };
+
+  const handleSetAmount = async () => {
+    if (newPin.length !== 4 || oldPin.length !== 4) {
+      alert("Pin must be 4 digits");
+      return;
+    }
+    if (newPin.length > 4 || oldPin.length > 4) {
+      alert("Pin must be 4 digits");
+      return;
+    }
+    try {
+      await changePin({ oldPin, newPin }).unwrap();
+      alert("Successfully changed pin, login again");
+      onLogout();
+      navigate("/login");
+    } catch {
+      alert("Incorrect Pin");
+    }
+  };
+
   return (
     <div className="flex min-h-screen">
       <div className="bg-[#e34d00] w-full flex flex-col justify-around">
         <div className="px-20">
           <div className="flex items-center justify-center my-10 space-x-6">
             <h1 className="mb-4 text-5xl font-semibold text-white ">
-              Please Enter amount to transfer
+              Change Pin
             </h1>
             <img
               className="border-2 border-white"
@@ -60,22 +59,22 @@ export const Transfer = () => {
             <div className="flex flex-col justify-center space-y-4">
               <div className="flex flex-col items-center space-y-2">
                 <label className="text-3xl font-semibold text-white">
-                  Account Number
+                  Old Pin
                 </label>
                 <input
                   type="tel"
                   className="bg-[#903000] py-5 px-6  text-white font-semibold text-3xl rounded-md"
-                  onChange={(e) => setAccount(e.target.value)}
+                  onChange={(e) => setOldPin(e.target.value)}
                 />
               </div>
               <div className="flex flex-col items-center space-y-2">
                 <label className="text-3xl font-semibold text-white">
-                  Amount
+                  New Pin
                 </label>
                 <input
                   type="tel"
                   className="bg-[#903000] py-5 px-6  text-white font-semibold text-3xl rounded-md"
-                  onChange={(e) => setTransferAmount(e.target.value)}
+                  onChange={(e) => setNewPin(e.target.value)}
                 />
               </div>
             </div>

@@ -20,6 +20,7 @@ import { PrivateRoute } from "./components/PrivateRoute.tsx";
 import { Balance } from "./pages/Balance.tsx";
 import { Transfer } from "./pages/Transfer.tsx";
 import { ConfirmTransfer } from "./pages/ConfirmTransfer.tsx";
+import { ChangePin } from "./pages/ChangePin.tsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -34,6 +35,7 @@ const router = createBrowserRouter(
         <Route path="/balance" element={<Balance />} />
         <Route path="/transfer" element={<Transfer />} />
         <Route path="/confirm" element={<ConfirmTransfer />} />
+        <Route path="/change-pin" element={<ChangePin />} />
       </Route>
       <Route path="/thankyou" element={<Thankyou />} />
     </Route>

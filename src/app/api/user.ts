@@ -29,6 +29,15 @@ export const userApi = api.injectEndpoints({
       }),
       invalidatesTags: tagTypes,
     }),
+
+    changePin: mutation({
+      query: (body) => ({
+        url: "/user/change-pin",
+        method: "PUT",
+        body,
+      }),
+      invalidatesTags: tagTypes,
+    }),
   }),
 });
 
@@ -37,4 +46,5 @@ export const {
   useWithdrawMutation,
   useGetUserByAccountQuery,
   useTransferMutation,
+  useChangePinMutation,
 } = userApi;

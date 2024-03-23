@@ -12,7 +12,7 @@ export const Thankyou = () => {
     logout();
     localStorage.removeItem(AUTH_STORAGE_KEY);
     localStorage.removeItem(TOKEN_STORAGE_KEY);
-    navigate("/");
+    navigate("/login");
   };
 
   return (
@@ -34,7 +34,7 @@ export const Thankyou = () => {
           </div>
           <div>
             <h1 className="mb-4 text-4xl font-semibold text-center text-white ">
-              Take Your Card
+              Transaction Successful
             </h1>
           </div>
         </div>

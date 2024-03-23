@@ -1,12 +1,19 @@
 import { Link, useNavigate } from "react-router-dom";
 import { setAmount } from "../app/data/amount";
 import { useAppDispatch } from "../app/data/store";
+import { useGetUserBalanceQuery } from "../app/api/user";
 
 export const Amount = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
+  const { data: balance } = useGetUserBalanceQuery({});
+
   const handleSetAmount = (amount: string) => {
+    if (balance && parseInt(amount) > balance.balance) {
+      alert("Insufficient balance");
+      return;
+    }
     dispatch(setAmount({ amount }));
     navigate("/denomination");
   };

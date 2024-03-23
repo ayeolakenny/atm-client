@@ -2,14 +2,27 @@ import { useState } from "react";
 import { useAppDispatch } from "../app/data/store";
 import { useNavigate } from "react-router-dom";
 import { setAmount } from "../app/data/amount";
+import { useGetUserBalanceQuery } from "../app/api/user";
 
 export const Others = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
+  const { data: balance } = useGetUserBalanceQuery({});
+
   const [otherAmount, setOtherAmount] = useState("");
 
   const handleSetAmount = () => {
+    if (balance && +otherAmount > balance.balance) {
+      alert("Insufficient balance");
+      return;
+    }
+
+    if (!otherAmount) {
+      alert("Please enter amount");
+      return;
+    }
+
     if (+otherAmount < 1000) {
       alert("Cannot withdraw less than 1000");
       return;
