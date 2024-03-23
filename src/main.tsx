@@ -21,6 +21,7 @@ import { Balance } from "./pages/Balance.tsx";
 import { Transfer } from "./pages/Transfer.tsx";
 import { ConfirmTransfer } from "./pages/ConfirmTransfer.tsx";
 import { ChangePin } from "./pages/ChangePin.tsx";
+import { Register } from "./pages/Register.tsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -38,6 +39,7 @@ const router = createBrowserRouter(
         <Route path="/change-pin" element={<ChangePin />} />
       </Route>
       <Route path="/thankyou" element={<Thankyou />} />
+      <Route path="/register" element={<Register />} />
     </Route>
   )
 );

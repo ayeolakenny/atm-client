@@ -38,6 +38,15 @@ export const userApi = api.injectEndpoints({
       }),
       invalidatesTags: tagTypes,
     }),
+
+    createUser: mutation({
+      query: (body) => ({
+        url: "/user",
+        method: "POST",
+        body,
+      }),
+      invalidatesTags: tagTypes,
+    }),
   }),
 });
 
@@ -47,4 +56,5 @@ export const {
   useGetUserByAccountQuery,
   useTransferMutation,
   useChangePinMutation,
+  useCreateUserMutation,
 } = userApi;
