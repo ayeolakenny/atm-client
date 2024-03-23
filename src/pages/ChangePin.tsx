@@ -62,7 +62,7 @@ export const ChangePin = () => {
                   Old Pin
                 </label>
                 <input
-                  type="tel"
+                  type="password"
                   className="bg-[#903000] py-5 px-6  text-white font-semibold text-3xl rounded-md"
                   onChange={(e) => setOldPin(e.target.value)}
                 />
@@ -72,7 +72,7 @@ export const ChangePin = () => {
                   New Pin
                 </label>
                 <input
-                  type="tel"
+                  type="password"
                   className="bg-[#903000] py-5 px-6  text-white font-semibold text-3xl rounded-md"
                   onChange={(e) => setNewPin(e.target.value)}
                 />

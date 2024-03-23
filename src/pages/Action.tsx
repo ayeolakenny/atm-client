@@ -36,9 +36,11 @@ export const Action = () => {
         <div className="flex justify-between w-full">
           <div className="bg-[#903000] flex rounded-sm">
             <div className="w-2 bg-white"></div>
-            <button className="px-8 py-4 text-lg font-semibold text-white ">
-              Select / Change Pin
-            </button>
+            <Link to="/change-pin">
+              <button className="px-8 py-4 text-lg font-semibold text-white ">
+                Select / Change Pin
+              </button>
+            </Link>
           </div>
           <div className="bg-[#903000] flex rounded-sm">
             <Link to="/amount">
